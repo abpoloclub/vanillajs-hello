@@ -1,4 +1,3 @@
-/* eslint-disable */
 import "bootstrap";
 import "./style.css";
 
@@ -6,13 +5,13 @@ import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
 window.onload = function() {
-  const excuse = document.querySelector("#excuse");
+  const excuseElement = document.querySelector("#excuse");
 
-  if (excuse) {
-    let who = ["The dog", "My grandma", "The mailman", "My bird"];
-    let action = ["ate", "peed", "crushed", "broke"];
-    let what = ["my homework", "my phone", "the car"];
-    let when = [
+  if (excuseElement) {
+    const who = ["The dog", "My grandma", "The mailman", "My bird"];
+    const action = ["ate", "peed", "crushed", "broke"];
+    const what = ["my homework", "my phone", "the car"];
+    const when = [
       "before the class",
       "when I was sleeping",
       "while I was exercising",
@@ -20,16 +19,25 @@ window.onload = function() {
       "while I was praying"
     ];
 
-    const newExcuseContent = [who, action, what, when];
+    const newExcuse = generateExcuse([who, action, what, when]);
 
-    let newExcuse = "";
-
-    newExcuseContent.forEach(array => {
-      const randomPosition = Math.floor(Math.random() * (array.length - 0));
-
-      newExcuse += array[randomPosition] + " ";
-    });
-
-    excuse.textContent = newExcuse;
+    displayExcuse(excuseElement, newExcuse);
   }
 };
+
+function generateExcuse(parts) {
+  return parts
+    .map(array => {
+      return getRandomElement(array);
+    })
+    .join(" ");
+}
+
+function getRandomElement(array) {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+
+function displayExcuse(element, excuse) {
+  element.textContent = excuse;
+}
